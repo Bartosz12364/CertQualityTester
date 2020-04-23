@@ -18,6 +18,7 @@ class ScanResult(Base):
     ip = Column(String)  # , unique=True)  # "212.82.100.137"
     port = Column(Integer)  # 443
     elapsedTime = Column(Integer)  # 2143
+    tlsVersion = Column(String)  # "TLSv1.2"
     cipher = Column(String)  # "ECDHE-RSA-AES128-GCM-SHA256 TLScustomer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
     tempPublicKeyAlg = Column(String)  # "ECDH prime256v1"
     tempPublicKeySize = Column(Integer)  # 256
