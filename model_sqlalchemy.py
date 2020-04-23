@@ -25,7 +25,7 @@ if "tlsVersions" in data:
 elif "tlsVersion" in data:
     data['tlsVersions'] = [models.TlsVersions(tlsversion=models.TlsVersionsEnum(data['tlsVersion']))]
 data['certificateChain'] = [models.CertificateChain(i) for i in data['certificateChain']]
-if 'czipherSuite' in data:
+if 'cipherSuite' in data:
     del data['cipherSuite']
 
 
