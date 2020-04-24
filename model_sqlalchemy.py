@@ -23,5 +23,5 @@ if __name__ == "__main__":
 
         sr = models.ScanResult(data)
         session.add(sr)
-        session.commit()
+    session.commit()
 
