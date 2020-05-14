@@ -28,9 +28,11 @@ class ScanResult(Base):
     sessionLifetimeHint = Column(Integer)  # 100800
     x509ChainDepth = Column(Integer)  # 2
     verifyCertResult = Column(Boolean)  # true
+    verifyCertError = Column(String(255)) # true
     verifyHostResult = Column(Boolean)  # true
     ocspStapled = Column(Boolean)  # true
     verifyOcspResult = Column(Boolean)  # true
+    cipherSuite = relationship('CipherSuite', backref='ScanResult')
     tlsVersions = relationship('TlsVersions', backref='ScanResult')
     certificateChain = relationship('CertificateChain', backref='ScanResult')
 
@@ -40,10 +42,14 @@ class ScanResult(Base):
 
 
 class TlsVersionsEnum(enum.Enum):
+    UNKNOWN = "UNKNOWN"
     TLSV1 = "TLSv1"
     TLSV1_1 = "TLSv1_1"
     TLSV1_2 = "TLSv1_2"
     TLSV1_3 = "TLSv1_3"
+    SSLv3 = "SSLv3"
+    SSLv2 = "SSLv2"
+    SSLv1 = "SSLv1"
 
 
 class TlsVersions(Base):
@@ -59,9 +65,9 @@ class TlsVersions(Base):
 class CipherSuite(Base):
     __tablename__ = 'ciphersuite'
     id = Column(Integer, primary_key=True)
-
-    placeholder = Column(String)
-
+    scan_id = Column(Integer, ForeignKey('scanresult.id'))
+    scan = relationship('ScanResult', foreign_keys=[scan_id])
+    cipherSuite = Column(String)
 
 class CertificateChain(Base):
     __tablename__ = 'certificatechain'

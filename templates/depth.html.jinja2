@@ -1,0 +1,40 @@
+<center><h5>Hosts Certificate Chain Depth</h5></center>
+
+<!-- Chart code -->
+<script>
+    am4core.ready(function () {
+
+// Themes begin
+        am4core.useTheme(am4themes_animated);
+// Themes end
+
+        var chart = am4core.create("depthdiv", am4charts.PieChart3D);
+        chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+        chart.legend = new am4charts.Legend();
+
+        chart.data = [
+            {% for single in depth %}
+            {
+                name: "depth: {{single}}",
+                val: {{depth[single]}}
+            },
+            {% endfor %}
+        ];
+
+        var series = chart.series.push(new am4charts.PieSeries3D());
+        series.dataFields.value = "val";
+        series.dataFields.depthValue = "val";
+        series.dataFields.category = "name";
+        series.slices.template.cornerRadius = 5;
+        var colorSet = new am4core.ColorSet();
+        colorSet.list = ["#e74c3c", "#27ae60"].map(function (color) {
+            return new am4core.color(color);
+        });
+        series.colors = colorSet
+
+    }); // end am4core.ready()
+</script>
+
+<!-- HTML -->
+<div id="depthdiv" style="width:100%;height:70%"></div>

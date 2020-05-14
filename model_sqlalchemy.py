@@ -11,17 +11,17 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    with open('out.json', encoding="utf-8-sig") as f:
+    with open('76kPLfixed.json', encoding="utf-8-sig") as f:
         dataset = json.load(f)
 
     for data in dataset:
         if "tlsVersions" in data:
-            data['tlsVersions'] = [models.TlsVersions(tlsversion=models.TlsVersionsEnum(i)) for i in data['tlsVersions']]
+            data['tlsVersions'] = [models.TlsVersions(tlsversion=models.TlsVersionsEnum(i)) for i in
+                                   data['tlsVersions']]
         data['certificateChain'] = [models.CertificateChain(i) for i in data['certificateChain']]
-        if 'cipherSuite' in data:
-            del data['cipherSuite']
+        if "cipherSuite" in data:
+            data['cipherSuite'] = [models.CipherSuite(cipherSuite=i) for i in data['cipherSuite']["supported"]]
 
         sr = models.ScanResult(data)
         session.add(sr)
     session.commit()
-
