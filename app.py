@@ -22,6 +22,14 @@ def index():
     results = session.execute(
         'select x509ChainDepth, count(id) from scanresult group by x509ChainDepth')
     depth = {x[0]: x[1] for x in list(results)}
-    print(depth)
 
-    return render_template('index.html.jinja2', all=all, expiration=expiration, self_signed=self_signed, depth=depth)
+    results = session.execute(
+        'select tlsversion, count(id) from tlsversions group by tlsVersion')
+    tls = {x[0]: x[1] for x in list(results)}
+
+    results = session.execute(
+        'select cipherSuite, count(id) from ciphersuite group by cipherSuite')
+    cipher = {x[0]: x[1] for x in list(results)}
+    print(cipher.keys())
+    del tls["UNKNOWN"]
+    return render_template('index.html.jinja2', all=all, expiration=expiration, self_signed=self_signed, depth=depth, tls=tls, cipher=cipher)

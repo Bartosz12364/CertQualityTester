@@ -11,7 +11,7 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    with open('76kPLfixed.json', encoding="utf-8-sig") as f:
+    with open('76kPLfixed5x.json', encoding="utf-8-sig") as f:
         dataset = json.load(f)
 
     for data in dataset:
