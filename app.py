@@ -32,4 +32,33 @@ def index():
     cipher = {x[0]: x[1] for x in list(results)}
     print(cipher.keys())
     del tls["UNKNOWN"]
-    return render_template('index.html.jinja2', all=all, expiration=expiration, self_signed=self_signed, depth=depth, tls=tls, cipher=cipher)
+
+    results = session.execute(
+        'select signatureAlg, count(id) from certificatechain group by signatureAlg')
+    signature_alg = {x[0]: x[1] for x in list(results)}
+
+
+    s = set()
+    for cipher_suite in cipher.keys():
+        for name in cipher_suite.split('-'):
+            s.add(name)
+    d = dict.fromkeys(s, None)
+    print(d)
+    for cipher_name in s:
+        for cipher_suite in cipher.keys():
+            if cipher_name in cipher_suite.split('-'):
+                print(f'true, {cipher_name}, {cipher_suite}')
+                cipher_tup = [cipher_suite, cipher[cipher_suite]]
+                print(cipher_tup)
+                if d[cipher_name] is None:
+                    d[cipher_name] = list()
+                d[cipher_name].append(cipher_tup)
+
+    for key in d.keys():
+        print(key)
+        print(f'    {d[key]}')
+
+    del d["256"]
+    del d["128"]
+
+    return render_template('index.html.jinja2', all=all, expiration=expiration, self_signed=self_signed, depth=depth, tls=tls, cipher=cipher, cipherDict=d, signature_alg=signature_alg)
