@@ -14,10 +14,10 @@ dom = args.r
 
 if __name__ == '__main__':
     with open(inputPath, 'r') as f:
-	    with open(outputPath, 'w') as o:
-		    csvReader = csv.reader(f)
-		    for row in csvReader:
-			    match = re.search(fr'.*(\.{dom})', row[1])
-			    if(match):
-				    # print(match.group())
-				    o.write(match.group() + "\n")
+        with open(outputPath, 'w') as o:
+            csvReader = csv.reader(f)
+            for row in csvReader:
+                match = re.search(fr'.*(\.{dom})', row[1])
+                if (match):
+                    # print(match.group())
+                    o.write(match.group() + "\n")

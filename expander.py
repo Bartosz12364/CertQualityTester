@@ -1,5 +1,4 @@
 import argparse
-import os
 import ipaddress
 
 parser = argparse.ArgumentParser()

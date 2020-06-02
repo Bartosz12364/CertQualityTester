@@ -14,17 +14,17 @@ if __name__ == '__main__':
     addressCount = 0
     exceptionCount = 0
     with open(inputPath) as f:
-	    with open(outputPath, 'w') as fi:
-		    lines = f.read().splitlines()
-		    for line in lines:
-			    try:
-				    a = socket.gethostbyname(str(line))
-				    fi.write(a)
-				    fi.write("\n")
-				    addressCount+=1
-				    if addressCount % 1000 == 0:
-					    print(f"{addressCount} adresses have been written to file...")
-			    except:
-				    exceptionCount+=1
-				    print(f"exception #{exceptionCount} occured...")
+        with open(outputPath, 'w') as fi:
+            lines = f.read().splitlines()
+            for line in lines:
+                try:
+                    a = socket.gethostbyname(str(line))
+                    fi.write(a)
+                    fi.write("\n")
+                    addressCount += 1
+                    if addressCount % 1000 == 0:
+                        print(f"{addressCount} adresses have been written to file...")
+                except:
+                    exceptionCount += 1
+                    print(f"exception #{exceptionCount} occured...")
     print(f"{exceptionCount} exceptions occured")

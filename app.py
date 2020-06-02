@@ -17,7 +17,8 @@ def index():
         'SELECT x, count(x) FROM (SELECT max(expired) as x FROM certificatechain group by scan_id) group by x')
     expiration = {x[0]: x[1] for x in list(results)}
 
-    self_signed = session.query(models.ScanResult).filter(models.ScanResult.verifyCertError == "self signed certificate").count()
+    self_signed = session.query(models.ScanResult).filter(
+        models.ScanResult.verifyCertError == "self signed certificate").count()
 
     results = session.execute(
         'select x509ChainDepth, count(id) from scanresult group by x509ChainDepth')
@@ -36,7 +37,6 @@ def index():
     results = session.execute(
         'select signatureAlg, count(id) from certificatechain group by signatureAlg')
     signature_alg = {x[0]: x[1] for x in list(results)}
-
 
     s = set()
     for cipher_suite in cipher.keys():
@@ -64,7 +64,10 @@ def index():
     results = session.execute(
         'select tempPublicKeyAlg, count(id) from scanresult group by tempPublicKeyAlg')
     tempPublicKeyAlg = {x[0]: x[1] for x in list(results)}
-    return render_template('index.html.jinja2', all=all, tempPublicKeyAlg=tempPublicKeyAlg, expiration=expiration, self_signed=self_signed, depth=depth, tls=tls, cipher=cipher, cipherDict=d, signature_alg=signature_alg)
+    return render_template('index.html.jinja2', all=all, tempPublicKeyAlg=tempPublicKeyAlg, expiration=expiration,
+                           self_signed=self_signed, depth=depth, tls=tls, cipher=cipher, cipherDict=d,
+                           signature_alg=signature_alg)
+
 
 @app.route('/keywords')
 def keywords():
@@ -75,7 +78,8 @@ def keywords():
         'SELECT x, count(x) FROM (SELECT max(expired) as x FROM certificatechain group by scan_id) group by x')
     expiration = {x[0]: x[1] for x in list(results)}
 
-    self_signed = session.query(models.ScanResult).filter(models.ScanResult.verifyCertError == "self signed certificate").count()
+    self_signed = session.query(models.ScanResult).filter(
+        models.ScanResult.verifyCertError == "self signed certificate").count()
 
     results = session.execute(
         'select x509ChainDepth, count(id) from scanresult group by x509ChainDepth')
@@ -94,7 +98,6 @@ def keywords():
     results = session.execute(
         'select signatureAlg, count(id) from certificatechain group by signatureAlg')
     signature_alg = {x[0]: x[1] for x in list(results)}
-
 
     s = set()
     for cipher_suite in cipher.keys():
@@ -119,4 +122,5 @@ def keywords():
     del d["256"]
     del d["128"]
 
-    return render_template('keywords.html.jinja2', all=all, expiration=expiration, self_signed=self_signed, depth=depth, tls=tls, cipher=cipher, cipherDict=d, signature_alg=signature_alg)
+    return render_template('keywords.html.jinja2', all=all, expiration=expiration, self_signed=self_signed, depth=depth,
+                           tls=tls, cipher=cipher, cipherDict=d, signature_alg=signature_alg)
