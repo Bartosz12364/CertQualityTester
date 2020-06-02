@@ -1,0 +1,43 @@
+
+<!-- Styles -->
+<style>
+#tempPublicKeyAlgdiv {
+  width: 120%;
+  height: 1500px;
+    padding-bottom:-200px;
+}
+</style>
+<!-- Chart code -->
+<script>
+    am4core.ready(function () {
+
+// Themes begin
+        am4core.useTheme(am4themes_animated);
+// Themes end
+
+        var chart = am4core.create("tempPublicKeyAlgdiv", am4charts.PieChart3D);
+        chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+        chart.legend = new am4charts.Legend();
+
+        chart.data = [
+            {% for single in tempPublicKeyAlg %}
+            {
+                name: "{{single}}",
+                val: {{tempPublicKeyAlg[single]}}
+            },
+            {% endfor %}
+        ];
+
+        var series = chart.series.push(new am4charts.PieSeries3D());
+        series.dataFields.value = "val";
+        series.dataFields.depthValue = "val";
+        series.dataFields.category = "name";
+        series.slices.template.cornerRadius = 5;
+
+
+    }); // end am4core.ready()
+</script>
+
+<!-- HTML -->
+<div id="tempPublicKeyAlgdiv" style="width:100%;height:70%"></div>

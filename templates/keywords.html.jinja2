@@ -1,0 +1,89 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Resources -->
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+</head>
+
+<br/>
+<br/>
+<body class=" ">
+
+<div class="container grey lighten-4 z-depth-3" style="margin-top:0;">
+    <nav>
+        <div class="nav-wrapper" style="background-color:#e74c3c">
+            <a href="#" class="brand-logo" style="margin-left:10px;">CertQualityTester</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li style="margin-right:10px;">Data from <b>{{ all }}</b> hosts</li>
+            </ul>
+        </div>
+    </nav>
+
+    <ul class="collapsible">
+{#        <li>#}
+{#            <div class="collapsible-header"><h5>Hosts with an <b>expired</b> certificate</h5></div>#}
+{#            <div class="collapsible-body">#}
+{#                <div class="col s12 m12 ">{% include 'exp.html.jinja2' %}</div>#}
+{#            </div>#}
+{#        </li>#}
+{#        <li>#}
+{#            <div class="collapsible-header"><h5>Hosts with an <b>self signed</b> Certificate</h5></div>#}
+{#            <div class="collapsible-body">#}
+{#                <div class="col s12 m12 ">{% include 'self.html.jinja2' %}</div>#}
+{#            </div>#}
+{#        </li>#}
+{#        <li>#}
+{#            <div class="collapsible-header"><h5>Hosts <b>Certificate Chain</b> Depth</h5></div>#}
+{#            <div class="collapsible-body">#}
+{#                <div class="col s12 m12 ">{% include 'depth.html.jinja2' %}</div>#}
+{#            </div>#}
+{#        </li>#}
+{#        <li>#}
+{#            <div class="collapsible-header"><h5>Most supported <b>TLS</b> versions</h5></div>#}
+{#            <div class="collapsible-body">#}
+{#                <div class="col s12 m12 ">{% include 'tls.html.jinja2' %}</div>#}
+{#            </div>#}
+{#        </li>#}
+{#        <li>#}
+{#            <div class="collapsible-header"><h5><b>Certificate signature</b> algorithm</h5></div>#}
+{#            <div class="collapsible-body">#}
+{#                <div class="col s12 m12 ">{% include 'signature_alg.html.jinja2' %}</div>#}
+{#            </div>#}
+{#        </li>#}
+{#        <li>#}
+{#            <div class="collapsible-header"><h5>Most Popular <b>Cipher Suites (Pie chart)</b></h5></div>#}
+{#            <div class="collapsible-body">#}
+{#                <div class="col s12 m12 ">{% include 'cipher_pie.html.jinja2' %}</div>#}
+{#            </div>#}
+{#        </li>#}
+        <div class="col s12 m12 ">{% include 'cipher.html.jinja2' %}</div>
+
+
+    </ul>
+
+    <footer class="page-footer" style="background-color:#e74c3c">
+        <div class="footer-copyright">
+            <div class="container">
+                <a href="/" class="white-text">Start</a> |
+                <a href="/keywords" class="white-text">Most Popular <b>Cipher Suites (KeyWords chart)</b></a>
+                © 2020 Bartosz Sledz # Konrad Zawora # Boguslaw Lobacz
+                <a class="grey-text text-lighten-4 right" href="#!"></a>
+            </div>
+        </div>
+    </footer>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.collapsible').collapsible().open(3);
+    });
+
+</script>
+</body>
+</html>
